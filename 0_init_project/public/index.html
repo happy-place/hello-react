@@ -2,18 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- 页签上左上角 logo 图标，%PUBLIC_URL% 为react脚手架提供的定位 public 目录关键字-->
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- 移动端适配 -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 地址栏 搜索框主题颜色，仅适用于安卓手机-->
     <meta name="theme-color" content="#000000" />
+    <!-- 网页描述信息，被浏览器抓取时，知道网页是做什么的-->
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
+    <!-- iphone 手机打开网页，将页面添加到主屏，作为应用入口时采用的图标，仅适用于 iphone 手机-->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
+    <!-- 应用加壳技术，对 web html 加上壳，会就可以安装在 安卓或苹果等移动手机上-->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -27,6 +33,7 @@
     <title>React App</title>
   </head>
   <body>
+    <!-- 浏览器不支持 js 时，告警信息-->
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
