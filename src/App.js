@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import Header from './components/Header'
-import List from './components/List'
-import Footer from './components/Footer'
+import axios from 'axios'
 import './App.css'
 
 export default class App extends Component {
+    state = {
+        students:[]
+    }
+
+    componentDidMount(){
+
+    }
+
     render() {
         return (
             <div>
-                <div className="todo-container">
-                    <div className="todo-wrap">
-                        <Header/>
-                        <List/>
-                        <Footer/>
-                    </div>
-                </div>
+                <span>Hello</span>
             </div>
         );
     }
