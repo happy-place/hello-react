@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery发送http请求.html</title>
+    <script type="text/javascript" src="util.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+</head>
+<body>
+<div id="root">
+    <p id="content"></p>
+</div>
+
+    <script type="text/javascript">
+       function get(){
+           $.ajax({
+               url:'http://localhost:5003/cors?id=1',
+               method:'GET',
+               success: (resp)=>{ // 成功获取到数据回调
+                   load(`${JSON.stringify(resp)}`,'color: green');
+               },
+               error: (resp)=>{ // 访问机器失败 和 获取资源失败 都走这里
+                   let {status,statusText} = resp;
+                   load(`${status} ${statusText}`,'color: red');
+               }
+           })
+       }
+
+       function post(){
+           $.ajax({
+               url:'http://localhost:5003/cors',
+               method:'POST',
+               data: {id:1},
+               success: (resp)=>{ // 成功获取到数据回调
+                   load(`${JSON.stringify(resp)}`,'color: green');
+               },
+               error: (resp)=>{ // 访问机器失败 和 获取资源失败 都走这里
+                   let {status,statusText} = resp;
+                   load(`${status} ${statusText}`,'color: red');
+               }
+           })
+       }
+
+       // get()
+       post()
+
+        /**
+         * ajax 基于 xhr 做了很好封装，但ajax 自身需要引入额外包，而且比较重，且不支持 promise 风格的链式调用
+         * */
+    </script>
+</body>
+</html>

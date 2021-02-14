@@ -13,7 +13,7 @@ class Search extends Component {
         }
         // 开始请求前设置isFirst 为false,isLoading为true,撤回欢迎词，改为loading效果
         PubSub.publish('github',{isFirst:false,isLoading:true})
-        axios.get(`http://localhost:3000/api1/user3?v=${v}&d=true`).then(
+        axios.get(`http://localhost:3000/api1/user2?v=${v}&d=true`).then(
             result => {
                 PubSub.publish('github',{isLoading:false,users:result.data})
             },

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基于hash history实现前端路由.html</title>
+<!--    <script src="https://cdn.bootcss.com/history/4.7.2/history.js"></script>-->
+</head>
+<body>
+    <a href='http://www.baidu.com' onclick="return goto('test1')">跳转至test1</a><br/><br/>
+    <button onclick="return goto('test2')">跳转至test2</button><br/><br/>
+    <button onclick="return goto('test3')">跳转至test3</button>&nbsp;&nbsp;<button onclick="return replaceTo('test3')">替换至test3</button><br/><br/>
+    <button onclick="return goBack()">后退</button>&nbsp;&nbsp;
+    <button onclick="return goForward()">前进</button><br/><br/>
+
+    <script>
+        let history = History.createHashHistory(); // 通过js自带的hisory API操作浏览器history，基于锚点定位
+        // let history = History.createBrowserHistory(); // 通过BOM 的hisory API操作浏览器history
+
+        function goto(dest){ // 跳转至指定地址,在history中重新压入一条记录
+            history.push(dest);
+            return false;
+        }
+
+        function replaceTo(dest){ // 将history中当前栈顶记录更新为指定记录
+            history.replace(dest)
+        }
+
+        function goBack(){ // 回退
+            history.goBack()
+        }
+
+        function goForward(){ // 前进
+            history.goForward();
+        }
+
+        history.listen((location)=>{// 监听浏览器地址变化
+            console.log(`请求路径改变了`)
+            console.log(location)
+        })
+
+    </script>
+</body>
+</html>

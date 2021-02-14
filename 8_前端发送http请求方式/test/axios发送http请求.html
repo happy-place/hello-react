@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>axios发送http请求.html</title>
+    <script type="text/javascript" src="util.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+
+</head>
+<body>
+<div id="root">
+    <p id="content"></p>
+</div>
+    <script type="text/javascript">
+       function get(){
+            axios.get(url='http://localhost:5003/cors?id=1').then(
+                result => {
+                    let {data,status,statusText} = result;
+                    load(JSON.stringify(data),'color: green')
+                },
+                error => {
+                    load(error,'color: red')
+                }
+            )
+       }
+
+       const qs = Qs;
+       function post(){
+           console.log(qs.stringify({id:1}))
+           axios.post(url='http://localhost:5003/cors',params=qs.stringify({id:1})).then(
+               result => {
+                   let {data} = result;
+                   load(JSON.stringify(data),'color: green')
+               },
+               error => {
+                   load(error,'color: red')
+               }
+           )
+       }
+
+       // get()
+       post()
+       /**
+        * axios 封装的是xhr, 是promise风格调用，需要第三方模块支持，对绝大部分浏览器支持
+        * */
+
+    </script>
+</body>
+</html>

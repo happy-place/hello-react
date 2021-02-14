@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery发送http请求.html</title>
+    <script type="text/javascript" src="util.js"></script>
+</head>
+<body>
+<div id="root">
+    <p id="content"></p>
+</div>
+    <script type="text/javascript">
+        // 1.创建 xhr对象
+       let xhr = new XMLHttpRequest();
+       // 2.设置访问方法，访问地址
+       xhr.open('GET','https://api.github.com/search/users?q=xxx')
+        // 3.设置返回值类型
+       xhr.responseType = 'json';
+       //  4.设置访问服务器成功回调，访问失败回调，
+        // 注：此处只要能正常访问到机器，就属于成功，服务资源不存在也属于成功；访问机器失败，才判定为失败
+       xhr.onload = () => {
+           console.log('请求成功，',xhr.response) // 无参回调
+       }
+
+       xhr.onerror = () => {
+           console.error('请求失败，',xhr.response) // 无参回调
+       }
+
+       xhr.send() // 正式发送请求
+
+        /**
+         * fetch 是js内置函数，用于发送http请求，且是primoise风格，对大多数浏览器有较好支持
+         * */
+    </script>
+</body>
+</html>

@@ -7,7 +7,6 @@ const app = express()
 const port = 5002
 const data = require('./public/json/github.json').items
 
-
 function change_image(data,do_change){
     if(do_change){
         let newData = data.map(e => {
@@ -43,8 +42,9 @@ app.get('/user',(req,resp)=>{
 
 app.get('/user2',(req,resp)=>{
     // 获取模拟github数据
-    let {query:{v}} = req;
-    resp.send(data)
+    let {query:{v,d}} = req;
+    let do_change = d === 'true'
+    resp.send(change_image(data,do_change))
 })
 
 app.use('/static', express.static(path.join(__dirname, 'public')))
