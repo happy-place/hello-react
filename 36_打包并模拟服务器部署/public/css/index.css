@@ -1,0 +1,16 @@
+.nav-highlight{
+    background-color: #eca428 !important;
+    color: white !important;
+}
+
+#root{
+    margin: 300px auto;
+    border: 1px solid #000;
+    width: 350px;
+    height: 60px;
+    text-align: center;
+}
+
+.input{
+    width: 100px;
+}

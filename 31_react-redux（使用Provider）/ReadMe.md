@@ -1,4 +1,4 @@
-## 30_react-redux（mapDispatchToProps简写）
+## 31_react-redux（使用Provider）
 ![React-Redux原理.png](./React-Redux原理.png)
 ```aidl
 react-redux 是react官方维护的redux库，可以很好将react代码与redux模块融合。
