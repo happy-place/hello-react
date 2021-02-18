@@ -27,7 +27,7 @@ class Count extends Component {
         let {persons,count} = this.props;
         return (
             <div>
-                <div>add count:{count}</div>
+                <div>person count: {persons.length},add count:{count}</div>
                 <input ref={c => this.input = c} type='text' defaultValue={1}/>&nbsp;
                 <button onClick={this.handleIncrement}>+</button>&nbsp;
                 <button onClick={this.handleDecrement}>-</button>&nbsp;
@@ -39,7 +39,7 @@ class Count extends Component {
 }
 
 export default connect(
-    state => ({count:state.count}),
+    state => ({count:state.count,persons:state.persons}),
      {// mapDispatchToProps 既可以是一个函数，又可以是一个js对象，对象value 为可以action实例的函数，或接受dispatch，的异步函数，
          // 由react-redux调用dispatch进行分发，或调用异步函数，然后分发action
         handleIncrement: createIncrementAction,

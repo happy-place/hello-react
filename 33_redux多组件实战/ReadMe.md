@@ -1,53 +1,22 @@
 ## 30_react-redux（mapDispatchToProps简写）
 ![React-Redux原理.png](./React-Redux原理.png)
 ```aidl
-react-redux 是react官方维护的redux库，可以很好将react代码与redux模块融合。
-特点：
-   1.react组件分为容器组件和UI组件，容器组件包裹UI组件，UI不直接与react-redux发生联系，通过容器组件实现间接访问；
-   2.依旧正常创建reducer 函数，并基于此创建store；
-   3.容器组件内部从react-redux中引入connect()()柯里化函数，第二次调用传入UI组件，第一次调用传入mapStateToProps(state)、
-   mapDispatchToProps(dispatch)两个函数，分别返回发kv形式js对象，对应获取store中的存储的状态，以及操作状态的函数；
-   4.容器组件无需自己传入store,而是在index.js中，App外层包裹Provider，将store传给Prodivder，其中的容器组件就可自动获取store;
-   5.使用react-redux无需自己在index.js中，同subscribe手动监测state修改，触发重新渲染，connect()()已经使容器组件具备自动监测渲染能力
-   6.UI组件不会脱离容器组件单独使用，因此可以直接在容器组件脚本中定义UI组件
-yarn add 'react-redux'
-
-注：mapDispatchToProps 既可以是一个函数，又可以是一个js对象，对象value 为可以action实例的函数，或接受dispatch，的异步函数，
-由react-redux调用dispatch进行分发，或调用异步函数，然后分发action；
-
-
-
-
-
-```
-> mapDispatchToProps 一般写法：自己调用dispatch
-```aidl
-// 同步store的状态给UI组件
-const mapStateToProps = (state) => {
-    return {count:state}
-}
-
-// 同步操作store状态的函数给UI组件
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleIncrement: (data) => dispatch(createIncrementAction(data)),
-        handleDecrement: (data) => dispatch(createDecrementAction(data)),
-        handleIncrementAsync: () => dispatch(createIncrementActionAsync()),
+react-redux 开发流程：
+1.开发静态网页，UI 组件，使其能够正常渲染展示，回调函数可以先定义空实现函数；
+2.开发容器组件包裹 UI 组件，connect(mapStateToProps,mapDispatchToProps)(XxxUI)
+    - 映射store状态：mapStateToProps
+    - 映射操作 store 状态的函数：mapDispatchToProps
+3.定义 redux 相关 constant、actions、reduers、store
+    - constant 包含所有 reducer function 接收 action 的 type 类型；
+    - actions 定义各 UI 组件回调动作映射的行为，例如：{type:INCREMENT, data:1}
+    - reduers 定义 reduce function(prevState,action) return newState;
+    - store 基于 reducers 创建store， export default createStore(combineReducers,applyMiddleware(thunk))
+      注：原本 redux 只接收 action，借助 react-thunk，可以接收异步回调函数，然后在回调中执行 dispatch(action)
+4.index.js 入口中，使用 Provider 管理 store，并包裹所有容器组件，实现给容器批量绑定 store 效果；
+5.UI 组件中，基于 props ，获取绑定状态、操作状态函数，完成回调函数的空实现；
+    mapStateToProps：state => {自己定义的 kv, 自己需要使用的 kv}
+    mapDispatchToProps: {
+        自己使用的回调函数名称: actions 中定义的回调函数名称
     }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(CountUI)
-```
-> mapDispatchToProps 简略写法：返回action或异步函数，由react-redux调用dispatch和异步函数
-```aidl
-// mapDispatchToProps 简略写法：返回action或异步函数，由react-redux调用dispatch和异步函数
-export default connect(
-    state => ({count:state}),
-     {// mapDispatchToProps 既可以是一个函数，又可以是一个js对象，对象value 为可以action实例的函数，或接受dispatch，的异步函数，
-         // 由react-redux调用dispatch进行分发，或调用异步函数，然后分发action
-        handleIncrement: createIncrementAction,
-        handleDecrement: createDecrementAction,
-        handleIncrementAsync: createIncrementActionAsync,
-    }
-)(CountUI)
+6.联调
 ```
