@@ -1,0 +1,23 @@
+.demo{
+    width: 770px;
+    background-color: yellow;
+    padding: 10px;
+}
+
+.child{
+    width: 100%;
+    background-color: blanchedalmond;
+    padding: 10px;
+}
+
+.grand{
+    width: 100%;
+    background-color: cadetblue;
+    padding: 10px;
+}
+
+.grand2{
+    width: 100%;
+    background-color: rebeccapurple;
+    padding: 10px;
+}

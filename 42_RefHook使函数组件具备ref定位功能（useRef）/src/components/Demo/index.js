@@ -1,23 +1,64 @@
-## 41_EffectHook使函数组件可以模拟声明周期函数（useEffect）
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom'
 
-> Effect Hook 副作用钩子
-```aidl
-借助 Effect Hook 可以让函数组件具备声明周期函数功能
+// class Demo extends Component {
+//
+//     state = {
+//         count: 0,
+//         name: 'tom',
+//     }
+//
+//     myRef =  React.createRef()
+//
+//     show = () =>{
+//         alert(this.myRef.current.value)
+//     }
+//
+//     add = () => {
+//         this.setState({count: this.state.count +1 })
+//     }
+//
+//     change = () => {
+//         this.setState({name: 'Jerry'})
+//     }
+//
+//     unmount = () =>{
+//         ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+//     }
+//
+//     componentDidMount = () => {
+//         this.timer = setInterval(()=>{
+//             this.setState({count: this.state.count +1 })
+//         },1000)
+//     }
+//
+//     componentWillUnmount = () => {
+//         clearInterval(this.timer)
+//     }
+//
+//     render() {
+//         let {count,name} = this.state;
+//         return (
+//             <div>
+//                 <div>累计: {count}，名称：{name}</div>
+//                 <input ref={this.myRef} type={'text'}/>
+//                 <button onClick={this.add}>点击+1</button>&nbsp;
+//                 <button onClick={this.change}>点击换名</button>&nbsp;
+//                 <button onClick={this.unmount}>卸载组件</button>&nbsp;
+//                 <button onClick={this.show}>点击显示数据</button>&nbsp;
+//             </div>
+//         )
+//     }
+// }
+//
+// export default Demo
 
-React.useEffect(callback,deps)
 
-情况 1：deps 为不传时，监控所有状态变更，类似于 componentDidUpdate 功能执行 1+n次；
-情况 2：deps 传空数值[]时，啥也不监控，只在挂载时执行一次，类似于 componentDidMount 功能，执行 1 次；
-情况 3：deps 传指定数组是[count]，只监控 count 状态变更，其余状态不管，执行 1+n次；
-情况 4：callback 返回另外一个函数时，此返回函数在组件被卸载时调用，类似于 componentWillUnmount 功能；
-注：在 callback 中使用 setXxx() 修改状态上，只能传函数 count => count + 1，不能穿值 count+1，否则累加实效
-```
-
-```javascript
 export default function Demo(){
 
     let [count,setCount] = React.useState(0);
     let [name,setName] = React.useState('Jack');
+    let myRef = React.useRef();
 
     // React.useEffect(()=>{
     //  console.log('@')
@@ -40,7 +81,6 @@ export default function Demo(){
         }
     },[])// 第二个参数传空数组，模拟 componentDidMount，实现定时器挂载，返回另外一个函数，在组件卸载时执行，模拟了 componentWillUnmount
 
-
     function unmount(){
         ReactDOM.unmountComponentAtNode(document.getElementById('root'))
     }
@@ -55,13 +95,18 @@ export default function Demo(){
         setName('Tom')
     }
 
+    function show(){
+        alert(myRef.current.value)
+    }
+
     return (
         <div>
             <div>累计: {count}，名称：{name}</div>
+            <input ref={myRef} type={'text'}/>
             <button onClick={add}>点击+1</button>&nbsp;
             <button onClick={change}>点击换名</button>&nbsp;
             <button onClick={unmount}>卸载组件</button>&nbsp;
+            <button onClick={show}>点击提升数据</button>&nbsp;
         </div>
     )
 }
-```
